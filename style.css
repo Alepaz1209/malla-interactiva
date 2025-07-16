@@ -1,32 +1,73 @@
 body {
-  font-family: Arial, sans-serif;
-  background: #f9f9f9;
+  font-family: "Segoe UI", sans-serif;
+  background-color: #e0f7fa;
+  margin: 0;
   padding: 20px;
+  color: #01579b;
 }
 
-h1 {
-  color: #2c3e50;
-}
-
-h2 {
-  color: #2c3e50;
+h1, h2 {
+  text-align: center;
+  color: #01579b;
 }
 
 .semester {
-  margin-bottom: 20px;
-  padding: 15px;
-  border-radius: 10px;
-  background: #fff;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  margin-bottom: 30px;
+}
+
+.semester h2 {
+  margin-bottom: 10px;
+  border-bottom: 2px solid #0288d1;
+  padding-bottom: 5px;
+}
+
+.subject-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: flex-start;
 }
 
 .subject {
-  padding: 8px 12px;
-  margin: 5px 0;
-  border-radius: 5px;
-  background: #ecf0f1;
+  padding: 12px 16px;
+  background-color: #b2ebf2;
+  border: 2px solid #4dd0e1;
+  border-radius: 10px;
   cursor: pointer;
-  transition: background 0.3s ease;
+  transition: all 0.3s ease;
+  flex: 1 1 200px;
+  text-align: center;
+  font-weight: 500;
+  color: #01579b;
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);
 }
 
-.sub
+/* Locked state: grisáceo azulado */
+.subject.locked {
+  background-color: #cfd8dc;
+  border-color: #90a4ae;
+  color: #546e7a;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+/* Unlocked but no completado */
+.subject.unlocked {
+  background-color: #e1f5fe;
+  border-color: #4dd0e1;
+  color: #0277bd;
+}
+
+/* Completed */
+.subject.completed {
+  background-color: #0288d1;
+  border-color: #01579b;
+  color: white;
+  text-decoration: line-through;
+}
+
+/* Hover effects solo en materias clickeables */
+.subject:not(.locked):hover {
+  transform: translateY(-3px);
+  box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.15);
+}
