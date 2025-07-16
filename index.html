@@ -1,27 +1,51 @@
-html_content = """<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Malla Medicina Veterinaria</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <title>Malla Curricular Medicina Veterinaria</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #fdf6f9;
+      color: #333;
+    }
+    .semester {
+      margin-bottom: 30px;
+    }
+    .subject-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .subject {
+      background-color: #ffc0cb;
+      padding: 10px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .subject:hover {
+      background-color: #ffb6c1;
+    }
+    .subject.active {
+      background-color: #e75480;
+      color: #fff;
+    }
+  </style>
 </head>
 <body>
-  <h1>Malla Curricular: Medicina Veterinaria</h1>
+
+  <h1>Malla Curricular - Medicina Veterinaria</h1>
 
   <!-- Semestre 1 -->
   <div class="semester">
     <h2>Semestre 1</h2>
     <div class="subject-container">
-      <div class="subject" role="button" tabindex="0" onclick="toggle(this)">
-        Matemática
-      </div>
-      <div class="subject" role="button" tabindex="0" onclick="toggle(this)">
-        Introducción a la Medicina Veterinaria
-      </div>
-      <div class="subject" role="button" tabindex="0" onclick="toggle(this)">
-        Taller de compresión Oral y Escrita
-      </div>
+      <div class="subject" id="biologia" onclick="toggle(this)">Biología</div>
+      <div class="subject" id="quimica" onclick="toggle(this)">Química General</div>
+      <div class="subject" id="matematica" onclick="toggle(this)">Matemática</div>
+      <div class="subject" id="historia-veterinaria" onclick="toggle(this)">Historia de la Medicina Veterinaria</div>
+      <div class="subject" id="introduccion-veterinaria" onclick="toggle(this)">Introducción a la Veterinaria</div>
     </div>
   </div>
 
@@ -29,19 +53,11 @@ html_content = """<!DOCTYPE html>
   <div class="semester">
     <h2>Semestre 2</h2>
     <div class="subject-container">
-      <div class="subject" role="button" tabindex="0" onclick="toggle(this)">
-        Bioestadística
-        <div class="description">Requiere Matemática</div>
-      </div>
-      <div class="subject" role="button" tabindex="0" onclick="toggle(this)">
-        Histoembriología
-      </div>
-      <div class="subject" role="button" tabindex="0" onclick="toggle(this)">
-        Anatomía del canino
-      </div>
-      <div class="subject" role="button" tabindex="0" onclick="toggle(this)">
-        Inglés I
-      </div>
+      <div class="subject" id="anatomia-canino" data-prereq="biologia" onclick="toggle(this)">Anatomía Canina</div>
+      <div class="subject" id="quimica-organica" data-prereq="quimica" onclick="toggle(this)">Química Orgánica</div>
+      <div class="subject" id="estadistica" data-prereq="matematica" onclick="toggle(this)">Estadística</div>
+      <div class="subject" id="etica-profesional" onclick="toggle(this)">Ética Profesional</div>
+      <div class="subject" id="zoologia" data-prereq="biologia" onclick="toggle(this)">Zoología General</div>
     </div>
   </div>
 
@@ -49,27 +65,11 @@ html_content = """<!DOCTYPE html>
   <div class="semester">
     <h2>Semestre 3</h2>
     <div class="subject-container">
-      <div class="subject" role="button" tabindex="0" onclick="toggle(this)">
-        Inglés II
-      </div>
-      <div class="subject" role="button" tabindex="0" onclick="toggle(this)">
-        Zoología
-        <div class="description">Requiere Histoembriología</div>
-      </div>
-      <div class="subject" role="button" tabindex="0" onclick="toggle(this)">
-        Práctica Básica
-        <div class="description">Requiere Anatomía del canino e Introducción a la Medicina Veterinaria</div>
-      </div>
-      <div class="subject" role="button" tabindex="0" onclick="toggle(this)">
-        Anatomía Comparada
-        <div class="description">Requiere Anatomía del canino</div>
-      </div>
-      <div class="subject" role="button" tabindex="0" onclick="toggle(this)">
-        Biología Celular
-      </div>
-      <div class="subject" role="button" tabindex="0" onclick="toggle(this)">
-        Química
-      </div>
+      <div class="subject" id="bioquimica" data-prereq="quimica-organica" onclick="toggle(this)">Bioquímica</div>
+      <div class="subject" id="anatomia-comparada" data-prereq="anatomia-canino" onclick="toggle(this)">Anatomía Comparada</div>
+      <div class="subject" id="microbiologia" data-prereq="biologia" onclick="toggle(this)">Microbiología</div>
+      <div class="subject" id="etologia" onclick="toggle(this)">Etología</div>
+      <div class="subject" id="computacion" onclick="toggle(this)">Computación</div>
     </div>
   </div>
 
@@ -77,52 +77,21 @@ html_content = """<!DOCTYPE html>
   <div class="semester">
     <h2>Semestre 4</h2>
     <div class="subject-container">
-      <div class="subject" role="button" tabindex="0" onclick="toggle(this)">
-        Microbiología General y Veterinaria
-        <div class="description">Requiere Biología Celular</div>
-      </div>
-      <div class="subject" role="button" tabindex="0" onclick="toggle(this)">
-        Genética
-        <div class="description">Requiere Bioestadística</div>
-      </div>
-      <div class="subject" role="button" tabindex="0" onclick="toggle(this)">
-        Adm. y Emprendimiento Vet.
-      </div>
-      <div class="subject" role="button" tabindex="0" onclick="toggle(this)">
-        Enfermedades Parasitarias
-        <div class="description">Requiere Zoología</div>
-      </div>
-      <div class="subject" role="button" tabindex="0" onclick="toggle(this)">
-        Bioquímica
-        <div class="description">Requiere Química</div>
-      </div>
+      <div class="subject" id="inmunologia" data-prereq="microbiologia" onclick="toggle(this)">Inmunología</div>
+      <div class="subject" id="nutricion-animal" data-prereq="bioquimica" onclick="toggle(this)">Nutrición Animal</div>
+      <div class="subject" id="adm-emprendimiento" onclick="toggle(this)">Administración y Emprendimiento</div>
+      <div class="subject" id="produccion-bovina" data-prereq="nutricion-animal" onclick="toggle(this)">Producción Bovina</div>
     </div>
   </div>
 
- <!-- Semestre 5 -->
+  <!-- Semestre 5 -->
   <div class="semester">
     <h2>Semestre 5</h2>
     <div class="subject-container">
-      <div class="subject" tabindex="0" role="button" onclick="toggle(this)">
-        Inmunología
-        <div class="description">Requiere Microbiología General y Veterinaria</div>
-      </div>
-      <div class="subject" tabindex="0" role="button" onclick="toggle(this)">
-        Medio Ambiente y Gestión Ambiental
-        <div class="description">Requiere Bioquímica</div>
-      </div>
-      <div class="subject" tabindex="0" role="button" onclick="toggle(this)">
-        Tecnología de los Alimentos
-        <div class="description">Requiere Microbiología General y Veterinaria</div>
-      </div>
-      <div class="subject" tabindex="0" role="button" onclick="toggle(this)">
-        Nutrición y Alimentación Animal
-        <div class="description">Requiere Bioquímica</div>
-      </div>
-      <div class="subject" tabindex="0" role="button" onclick="toggle(this)">
-        Etología y Bienestar Animal
-        <div class="description">Requiere Zoología</div>
-      </div>
+      <div class="subject" id="enfermedades-parasitarias" data-prereq="inmunologia" onclick="toggle(this)">Enfermedades Parasitarias</div>
+      <div class="subject" id="tecnologia-alimentos" data-prereq="bioquimica" onclick="toggle(this)">Tecnología de los Alimentos</div>
+      <div class="subject" id="medio-ambiente" onclick="toggle(this)">Medio Ambiente y Salud</div>
+      <div class="subject" id="bromatologia" data-prereq="quimica-organica" onclick="toggle(this)">Bromatología</div>
     </div>
   </div>
 
@@ -130,22 +99,10 @@ html_content = """<!DOCTYPE html>
   <div class="semester">
     <h2>Semestre 6</h2>
     <div class="subject-container">
-      <div class="subject" tabindex="0" role="button" onclick="toggle(this)">
-        Fisiología Animal
-        <div class="description">Requiere Anatomía del canino y Bioquímica</div>
-      </div>
-      <div class="subject" tabindex="0" role="button" onclick="toggle(this)">
-        Producción Avícola
-        <div class="description">Requiere Nutrición y Alimentación Animal y Etología y Bienestar Animal</div>
-      </div>
-      <div class="subject" tabindex="0" role="button" onclick="toggle(this)">
-        Enfermedades Infecciosas
-        <div class="description">Requiere Inmunología</div>
-      </div>
-      <div class="subject" tabindex="0" role="button" onclick="toggle(this)">
-        Control de Calidad de Alimentos
-        <div class="description">Requiere Enfermedades Parasitarias y Tecnología de los Alimentos</div>
-      </div>
+      <div class="subject" id="fisiologia-animal" data-prereq="anatomia-canino,bioquimica" onclick="toggle(this)">Fisiología Animal</div>
+      <div class="subject" id="produccion-avicola" data-prereq="nutricion-animal,etologia" onclick="toggle(this)">Producción Avícola</div>
+      <div class="subject" id="enfermedades-infecciosas" data-prereq="inmunologia" onclick="toggle(this)">Enfermedades Infecciosas</div>
+      <div class="subject" id="control-calidad" data-prereq="enfermedades-parasitarias,tecnologia-alimentos" onclick="toggle(this)">Control de Calidad de Alimentos</div>
     </div>
   </div>
 
@@ -153,22 +110,10 @@ html_content = """<!DOCTYPE html>
   <div class="semester">
     <h2>Semestre 7</h2>
     <div class="subject-container">
-      <div class="subject" tabindex="0" role="button" onclick="toggle(this)">
-        Epidemiología Veterinaria
-        <div class="description">Requiere Enfermedades Infecciosas</div>
-      </div>
-      <div class="subject" tabindex="0" role="button" onclick="toggle(this)">
-        Producción Ovina y Caprina
-        <div class="description">Requiere Genética</div>
-      </div>
-      <div class="subject" tabindex="0" role="button" onclick="toggle(this)">
-        Reproducción e Inseminación Artificial
-        <div class="description">Requiere Fisiología Animal</div>
-      </div>
-      <div class="subject" tabindex="0" role="button" onclick="toggle(this)">
-        Fisiopatología
-        <div class="description">Requiere Fisiología Animal y Zoología</div>
-      </div>
+      <div class="subject" id="epidemiologia" data-prereq="enfermedades-infecciosas" onclick="toggle(this)">Epidemiología Veterinaria</div>
+      <div class="subject" id="produccion-ovina" data-prereq="genetica" onclick="toggle(this)">Producción Ovina y Caprina</div>
+      <div class="subject" id="reproduccion" data-prereq="fisiologia-animal" onclick="toggle(this)">Reproducción e Inseminación Artificial</div>
+      <div class="subject" id="fisiopatologia" data-prereq="fisiologia-animal,zoologia" onclick="toggle(this)">Fisiopatología</div>
     </div>
   </div>
 
@@ -176,18 +121,9 @@ html_content = """<!DOCTYPE html>
   <div class="semester">
     <h2>Semestre 8</h2>
     <div class="subject-container">
-      <div class="subject" tabindex="0" role="button" onclick="toggle(this)">
-        Patología de los Sistemas
-        <div class="description">Requiere Fisiopatología</div>
-      </div>
-      <div class="subject" tabindex="0" role="button" onclick="toggle(this)">
-        Farmacología y Toxicología
-        <div class="description">Requiere Fisiología Animal</div>
-      </div>
-      <div class="subject" tabindex="0" role="button" onclick="toggle(this)">
-        Ginecología y Obstetricia
-        <div class="description">Requiere Reproducción e Inseminación Artificial</div>
-      </div>
+      <div class="subject" id="patologia-sistemas" data-prereq="fisiopatologia" onclick="toggle(this)">Patología de los Sistemas</div>
+      <div class="subject" id="farmacologia" data-prereq="fisiologia-animal" onclick="toggle(this)">Farmacología y Toxicología</div>
+      <div class="subject" id="ginecologia" data-prereq="reproduccion" onclick="toggle(this)">Ginecología y Obstetricia</div>
     </div>
   </div>
 
@@ -195,30 +131,12 @@ html_content = """<!DOCTYPE html>
   <div class="semester">
     <h2>Semestre 9</h2>
     <div class="subject-container">
-      <div class="subject" tabindex="0" role="button" onclick="toggle(this)">
-        Metodología de la Investigación
-        <div class="description">Requiere Epidemiología Veterinaria</div>
-      </div>
-      <div class="subject" tabindex="0" role="button" onclick="toggle(this)">
-        Producción Acuícola
-        <div class="description">Requiere Nutrición y Alimentación Animal</div>
-      </div>
-      <div class="subject" tabindex="0" role="button" onclick="toggle(this)">
-        Práctica Intermedia
-        <div class="description">Requiere Farmacología y Toxicología y Enfermedades Infecciosas</div>
-      </div>
-      <div class="subject" tabindex="0" role="button" onclick="toggle(this)">
-        Producción Porcina
-        <div class="description">Requiere Reproducción e Inseminación Artificial y Medio Ambiente y Gestión Ambiental</div>
-      </div>
-      <div class="subject" tabindex="0" role="button" onclick="toggle(this)">
-        Semiología
-        <div class="description">Requiere Farmacología, Fisiopatología y Anatomía Comparada</div>
-      </div>
-      <div class="subject" tabindex="0" role="button" onclick="toggle(this)">
-        Laboratorio Clínico
-        <div class="description">Requiere Patología de los Sistemas</div>
-      </div>
+      <div class="subject" id="investigacion" data-prereq="epidemiologia" onclick="toggle(this)">Metodología de la Investigación</div>
+      <div class="subject" id="acuicola" data-prereq="nutricion-animal" onclick="toggle(this)">Producción Acuícola</div>
+      <div class="subject" id="practica-intermedia" data-prereq="farmacologia,enfermedades-infecciosas" onclick="toggle(this)">Práctica Intermedia</div>
+      <div class="subject" id="produccion-porcina" data-prereq="reproduccion,medio-ambiente" onclick="toggle(this)">Producción Porcina</div>
+      <div class="subject" id="semiologia" data-prereq="farmacologia,fisiopatologia,anatomia-comparada" onclick="toggle(this)">Semiología</div>
+      <div class="subject" id="lab-clinico" data-prereq="patologia-sistemas" onclick="toggle(this)">Laboratorio Clínico</div>
     </div>
   </div>
 
@@ -226,38 +144,14 @@ html_content = """<!DOCTYPE html>
   <div class="semester">
     <h2>Semestre 10</h2>
     <div class="subject-container">
-      <div class="subject" tabindex="0" role="button" onclick="toggle(this)">
-        Salud Pública
-        <div class="description">Requiere Control de Calidad de Alimentos y Epidemiología Veterinaria</div>
-      </div>
-      <div class="subject" tabindex="0" role="button" onclick="toggle(this)">
-        Trabajo de Titulación
-        <div class="description">Requiere Metodología de la Investigación</div>
-      </div>
-      <div class="subject" tabindex="0" role="button" onclick="toggle(this)">
-        Medicina Animales Exóticos
-        <div class="description">Requiere Semiología y Laboratorio Clínico</div>
-      </div>
-      <div class="subject" tabindex="0" role="button" onclick="toggle(this)">
-        Medicina Animales Mayores
-        <div class="description">Requiere Semiología y Laboratorio Clínico</div>
-      </div>
-      <div class="subject" tabindex="0" role="button" onclick="toggle(this)">
-        Medicina de Felinos
-        <div class="description">Requiere Semiología y Laboratorio Clínico</div>
-      </div>
-      <div class="subject" tabindex="0" role="button" onclick="toggle(this)">
-        Medicina de Caninos
-        <div class="description">Requiere Semiología y Laboratorio Clínico</div>
-      </div>
-      <div class="subject" tabindex="0" role="button" onclick="toggle(this)">
-        Cirugía General
-        <div class="description">Requiere Semiología</div>
-      </div>
-      <div class="subject" tabindex="0" role="button" onclick="toggle(this)">
-        Formulario y Evaluación de Proyectos
-        <div class="description">Requiere Adm. y Emprendimiento Vet.</div>
-      </div>
+      <div class="subject" id="salud-publica" data-prereq="control-calidad,epidemiologia" onclick="toggle(this)">Salud Pública</div>
+      <div class="subject" id="titulacion" data-prereq="investigacion" onclick="toggle(this)">Trabajo de Titulación</div>
+      <div class="subject" id="medicina-exoticos" data-prereq="semiologia,lab-clinico" onclick="toggle(this)">Medicina Animales Exóticos</div>
+      <div class="subject" id="medicina-mayores" data-prereq="semiologia,lab-clinico" onclick="toggle(this)">Medicina Animales Mayores</div>
+      <div class="subject" id="medicina-felinos" data-prereq="semiologia,lab-clinico" onclick="toggle(this)">Medicina de Felinos</div>
+      <div class="subject" id="medicina-caninos" data-prereq="semiologia,lab-clinico" onclick="toggle(this)">Medicina de Caninos</div>
+      <div class="subject" id="cirugia" data-prereq="semiologia" onclick="toggle(this)">Cirugía General</div>
+      <div class="subject" id="formulario-proyectos" data-prereq="adm-emprendimiento" onclick="toggle(this)">Formulario y Evaluación de Proyectos</div>
     </div>
   </div>
 
@@ -265,22 +159,10 @@ html_content = """<!DOCTYPE html>
   <div class="semester">
     <h2>Semestre 11</h2>
     <div class="subject-container">
-      <div class="subject" tabindex="0" role="button" onclick="toggle(this)">
-        Diagnóstico por Imagen
-        <div class="description">Requiere Patología de los Sistemas</div>
-      </div>
-      <div class="subject" tabindex="0" role="button" onclick="toggle(this)">
-        Práctica Final
-        <div class="description">Requiere Práctica Intermedia</div>
-      </div>
-      <div class="subject" tabindex="0" role="button" onclick="toggle(this)">
-        Patología Quirúrgica
-        <div class="description">Requiere Cirugía General</div>
-      </div>
-      <div class="subject" tabindex="0" role="button" onclick="toggle(this)">
-        Producción Bovina de Leche y Carne
-        <div class="description">Requiere Ginecología y Obstetricia</div>
-      </div>
+      <div class="subject" id="imagen" data-prereq="patologia-sistemas" onclick="toggle(this)">Diagnóstico por Imagen</div>
+      <div class="subject" id="practica-final" data-prereq="practica-intermedia" onclick="toggle(this)">Práctica Final</div>
+      <div class="subject" id="patologia-quirurgica" data-prereq="cirugia" onclick="toggle(this)">Patología Quirúrgica</div>
+      <div class="subject" id="produccion-bovina" data-prereq="ginecologia" onclick="toggle(this)">Producción Bovina de Leche y Carne</div>
     </div>
   </div>
 
@@ -288,21 +170,16 @@ html_content = """<!DOCTYPE html>
   <div class="semester">
     <h2>Semestre 12</h2>
     <div class="subject-container">
-      <div class="subject" role="button" tabindex="0" onclick="toggle(this)">
-        Clínica Animales Mayores
-        <div class="description">Requiere Medicina Animales Mayores y Diagnóstico por Imagen</div>
-      </div>
-      <div class="subject" role="button" tabindex="0" onclick="toggle(this)">
-        Clínica Animales Menores
-        <div class="description">Requiere Diagnóstico por Imagen y Medicina de Caninos</div>
-      </div>
-      <div class="subject" role="button" tabindex="0" onclick="toggle(this)">
-        Farmacología Aplicada
-        <div class="description">Requiere Medicina de Animales Mayores y Medicina de Caninos</div>
-      </div>
+      <div class="subject" id="clinica-mayores" data-prereq="medicina-mayores,imagen" onclick="toggle(this)">Clínica Animales Mayores</div>
+      <div class="subject" id="clinica-menores" data-prereq="imagen,medicina-caninos" onclick="toggle(this)">Clínica Animales Menores</div>
+      <div class="subject" id="farmacologia-aplicada" data-prereq="medicina-mayores,medicina-caninos" onclick="toggle(this)">Farmacología Aplicada</div>
     </div>
   </div>
 
-    <script src="script.js"></script>
+  <script>
+    function toggle(element) {
+      element.classList.toggle("active");
+    }
+  </script>
 </body>
 </html>
